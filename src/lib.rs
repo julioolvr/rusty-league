@@ -68,6 +68,11 @@ impl LeagueClient {
         self.make_request(path)
     }
 
+    pub fn get_regions(&self) -> Result<Vec<RegionResponse>, Error> {
+        let path = "/api/v1/regions".to_string();
+        self.make_request(path)
+    }
+
     fn make_request<T>(&self, path: String) -> Result<T, Error>
         where T: serde::de::DeserializeOwned
     {

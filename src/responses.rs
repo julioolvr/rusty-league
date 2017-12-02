@@ -47,3 +47,9 @@ pub struct PlatformPopulationResponse {
     #[serde(rename = "NumPlayers")]
     num_players: i64,
 }
+
+#[derive(Deserialize, Debug)]
+pub struct RegionResponse {
+    platforms: String,
+    region: String, // TODO: Consider an enum
+}
