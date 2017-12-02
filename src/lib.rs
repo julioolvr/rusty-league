@@ -8,19 +8,20 @@ extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
 
-mod errors;
-mod platform;
-mod responses;
-
 use std::cell::RefCell;
 use futures::{Future, Stream};
 use hyper::{Client, Chunk};
 use hyper_tls::HttpsConnector;
 use tokio_core::reactor::Core;
 
-use errors::Error;
+mod errors;
+mod platform;
+pub mod responses;
+
 pub use platform::Platform;
-pub use responses::*;
+
+use errors::Error;
+use responses::*;
 
 const BASE_URL: &'static str = "https://api.rocketleague.com";
 
