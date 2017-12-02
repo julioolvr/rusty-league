@@ -52,6 +52,11 @@ impl LeagueClient {
            })
     }
 
+    /// Query for a single player skills level.
+    ///
+    /// Endpoint: `GET /api/v1/{platform_code}/playerskills/{player_id}`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getplayerskills/
     pub fn get_player_skills(&self,
                              platform: Platform,
                              player_id: PlayerId)
@@ -60,6 +65,11 @@ impl LeagueClient {
         self.make_get_request(path)
     }
 
+    /// Query for a multiple players skills level.
+    ///
+    /// Endpoint: `POST /api/v1/{platform_code}/playerskills`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getplayerskills/
     pub fn get_players_skills(&self,
                               platform: Platform,
                               player_ids: Vec<PlayerId>)
@@ -69,6 +79,11 @@ impl LeagueClient {
         self.make_post_request(path, serde_json::to_string(&query).unwrap())
     }
 
+    /// Query for a single player titles.
+    ///
+    /// Endpoint: `GET /api/v1/{platform_code}/playertitles/{player_id}`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getplayertitles/
     pub fn get_player_titles(&self,
                              platform: Platform,
                              player_id: PlayerId)
@@ -77,16 +92,31 @@ impl LeagueClient {
         self.make_get_request(path)
     }
 
+    /// Query for the servers populations.
+    ///
+    /// Endpoint: `GET /api/v1/population`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getpopulation/
     pub fn get_population(&self) -> Result<PopulationResponse, Error> {
         let path = "/api/v1/population".to_string();
         self.make_get_request(path)
     }
 
+    /// Query for the available regions.
+    ///
+    /// Endpoint: `GET /api/v1/regions`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getregions/
     pub fn get_regions(&self) -> Result<Vec<RegionResponse>, Error> {
         let path = "/api/v1/regions".to_string();
         self.make_get_request(path)
     }
 
+    /// Query for the skill leaderboards for a playlist in a platform.
+    ///
+    /// Endpoint: `GET /api/v1/{platform_code}/leaderboard/skills/{playlist_id}`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getskillleaderboard/
     pub fn get_skill_leaderboard(&self,
                                  platform: Platform,
                                  playlist: i64)
@@ -97,6 +127,11 @@ impl LeagueClient {
         self.make_get_request(path)
     }
 
+    /// Query for the stats leaderboards for a platform.
+    ///
+    /// Endpoint: `GET /api/v1/{platform_code}/leaderboard/stats`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getstatsleaderboard/
     pub fn get_stats_leaderboard(&self,
                                  platform: Platform)
                                  -> Result<Vec<StatLeaderboardResponse>, Error> {
@@ -104,6 +139,11 @@ impl LeagueClient {
         self.make_get_request(path)
     }
 
+    /// Query for a specific stat leaderboards for a platform.
+    ///
+    /// Endpoint: `GET /api/v1/{platform_code}/leaderboard/stats/{stat_type}`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getstatsleaderboard/
     pub fn get_stat_leaderboard(&self,
                                 platform: Platform,
                                 stat: &str)
@@ -112,6 +152,11 @@ impl LeagueClient {
         self.make_get_request(path)
     }
 
+    /// Query for a specific stat for a player.
+    ///
+    /// Endpoint: `GET /api/v1/{platform_code}/leaderboard/stats/{stat_type}/{player_id}`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getstatsvalueforuser/
     pub fn get_stat_value_for_user(&self,
                                    platform: Platform,
                                    stat: &str,
@@ -124,6 +169,11 @@ impl LeagueClient {
         self.make_get_request(path)
     }
 
+    /// Query for the a specific stat for multiple player.
+    ///
+    /// Endpoint: `POST /api/v1/{platform_code}/leaderboard/stats/{stat_type}`
+    ///
+    /// Docs: https://api.rocketleague.com/docs/getstatsvalueforuser/
     pub fn get_stat_value_for_users(&self,
                                     platform: Platform,
                                     stat: &str,
