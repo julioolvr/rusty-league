@@ -9,6 +9,7 @@ extern crate serde_json;
 extern crate serde_derive;
 
 mod errors;
+mod platform;
 
 use std::cell::RefCell;
 use futures::{Future, Stream};
@@ -17,25 +18,9 @@ use hyper_tls::HttpsConnector;
 use tokio_core::reactor::Core;
 
 use errors::Error;
+pub use platform::Platform;
 
 const BASE_URL: &'static str = "https://api.rocketleague.com";
-
-pub enum Platform {
-    Steam,
-    Xbox,
-    Playstation,
-}
-
-impl Platform {
-    pub fn code(&self) -> String {
-        match self {
-                &Platform::Steam => "steam",
-                &Platform::Xbox => "xboxone",
-                &Platform::Playstation => "ps4",
-            }
-            .to_string()
-    }
-}
 
 pub type PlayerId = String;
 
