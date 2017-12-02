@@ -98,6 +98,18 @@ impl LeagueClient {
         self.make_request(path)
     }
 
+    pub fn get_stat_value_for_user(&self,
+                                   platform: Platform,
+                                   stat: &str,
+                                   player_id: PlayerId)
+                                   -> Result<Vec<StatValueForUserResponse>, Error> {
+        let path = format!("/api/v1/{}/leaderboard/stats/{}/{}",
+                           platform.code(),
+                           stat,
+                           player_id);
+        self.make_request(path)
+    }
+
     fn make_request<T>(&self, path: String) -> Result<T, Error>
         where T: serde::de::DeserializeOwned
     {

@@ -79,3 +79,11 @@ pub struct PlayerStatResponse {
     shots: Option<i64>,
     wins: Option<i64>,
 }
+
+#[derive(Deserialize, Debug)]
+pub struct StatValueForUserResponse {
+    user_id: Option<String>,
+    user_name: Option<String>,
+    stat_type: String,
+    value: String,
+}
