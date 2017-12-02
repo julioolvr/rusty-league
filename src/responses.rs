@@ -87,3 +87,11 @@ pub struct StatValueForUserResponse {
     stat_type: String,
     value: String,
 }
+
+#[derive(Deserialize, Debug)]
+pub struct StatValueForUserMultipleResponse {
+    user_id: Option<String>,
+    user_name: Option<String>,
+    stat_type: String,
+    value: i64,
+}
