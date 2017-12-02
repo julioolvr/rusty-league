@@ -51,6 +51,26 @@ pub struct PlayerTitlesResponse {
     titles: Vec<PlayerTitle>,
 }
 
+#[derive(Deserialize, Debug)]
+pub struct PopulationResponse {
+    #[serde(rename = "XboxOne")]
+    xbox_one: Vec<PlatformPopulationResponse>,
+    #[serde(rename = "Switch")]
+    switch: Vec<PlatformPopulationResponse>,
+    #[serde(rename = "Steam")]
+    steam: Vec<PlatformPopulationResponse>,
+    #[serde(rename = "PS4")]
+    ps4: Vec<PlatformPopulationResponse>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct PlatformPopulationResponse {
+    #[serde(rename = "PlaylistID")]
+    playlist: i64,
+    #[serde(rename = "NumPlayers")]
+    num_players: i64,
+}
+
 pub struct LeagueClient {
     token: String,
     core: RefCell<Core>,
@@ -87,6 +107,11 @@ impl LeagueClient {
                              player_id: PlayerId)
                              -> Result<PlayerTitlesResponse, Error> {
         let path = format!("/api/v1/{}/playertitles/{}", platform.code(), player_id);
+        self.make_request(path)
+    }
+
+    pub fn get_population(&self) -> Result<PopulationResponse, Error> {
+        let path = "/api/v1/population".to_string();
         self.make_request(path)
     }
 
