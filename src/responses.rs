@@ -53,3 +53,11 @@ pub struct RegionResponse {
     platforms: String,
     region: String, // TODO: Consider an enum
 }
+
+#[derive(Deserialize, Debug)]
+pub struct SkillLeaderboardResponse {
+    user_id: Option<String>,
+    user_name: String,
+    tier: i64,
+    skill: i64,
+}

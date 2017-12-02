@@ -73,6 +73,16 @@ impl LeagueClient {
         self.make_request(path)
     }
 
+    pub fn get_skill_leaderboard(&self,
+                                 platform: Platform,
+                                 playlist: i64)
+                                 -> Result<Vec<SkillLeaderboardResponse>, Error> {
+        let path = format!("/api/v1/{}/leaderboard/skills/{}",
+                           platform.code(),
+                           playlist);
+        self.make_request(path)
+    }
+
     fn make_request<T>(&self, path: String) -> Result<T, Error>
         where T: serde::de::DeserializeOwned
     {
