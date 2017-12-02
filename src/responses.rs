@@ -61,3 +61,21 @@ pub struct SkillLeaderboardResponse {
     tier: i64,
     skill: i64,
 }
+
+#[derive(Deserialize, Debug)]
+pub struct StatLeaderboardResponse {
+    stats: Vec<PlayerStatResponse>,
+    stat_type: String,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct PlayerStatResponse {
+    user_id: Option<String>,
+    user_name: String,
+    assists: Option<i64>,
+    goals: Option<i64>,
+    mvps: Option<i64>,
+    saves: Option<i64>,
+    shots: Option<i64>,
+    wins: Option<i64>,
+}

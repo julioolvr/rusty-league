@@ -83,6 +83,13 @@ impl LeagueClient {
         self.make_request(path)
     }
 
+    pub fn get_stats_leaderboard(&self,
+                                 platform: Platform)
+                                 -> Result<Vec<StatLeaderboardResponse>, Error> {
+        let path = format!("/api/v1/{}/leaderboard/stats", platform.code());
+        self.make_request(path)
+    }
+
     fn make_request<T>(&self, path: String) -> Result<T, Error>
         where T: serde::de::DeserializeOwned
     {
