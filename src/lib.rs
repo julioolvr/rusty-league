@@ -23,6 +23,7 @@ pub use platform::Platform;
 const BASE_URL: &'static str = "https://api.rocketleague.com";
 
 pub type PlayerId = String;
+pub type PlayerTitle = String;
 
 #[derive(Deserialize, Debug)]
 pub struct PlayerSkillResponse {
@@ -43,6 +44,11 @@ struct PlaylistSkillResponse {
     sigma: f64,
     win_streak: Option<i64>,
     matches_played: Option<i64>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct PlayerTitlesResponse {
+    titles: Vec<PlayerTitle>,
 }
 
 pub struct LeagueClient {
@@ -76,6 +82,14 @@ impl LeagueClient {
         self.make_request(path)
     }
 
+    pub fn get_player_titles(&self,
+                             platform: Platform,
+                             player_id: PlayerId)
+                             -> Result<PlayerTitlesResponse, Error> {
+        let path = format!("/api/v1/{}/playertitles/{}", platform.code(), player_id);
+        self.make_request(path)
+    }
+
     fn make_request<T>(&self, path: String) -> Result<T, Error>
         where T: serde::de::DeserializeOwned
     {
@@ -92,6 +106,7 @@ impl LeagueClient {
             .request(request)
             .and_then(|res| res.body().concat2())
             .and_then(move |body: Chunk| {
+                          // TODO: Map the error here instead and return it instead of unwrapping
                           let v = serde_json::from_slice(&body).unwrap();
                           Ok(v)
                       });
