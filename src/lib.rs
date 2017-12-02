@@ -85,18 +85,15 @@ impl LeagueClient {
             .headers_mut()
             .set(hyper::header::Authorization(format!("Token {}", self.token)));
 
-        let work = self.client
-            .request(request)
-            .and_then(|res| res.body().concat2())
-            .and_then(move |body: Chunk| {
-                          // TODO: Map the error here instead and return it instead of unwrapping
-                          let v = serde_json::from_slice(&body).unwrap();
-                          Ok(v)
-                      });
+        let work =
+            self.client
+                .request(request)
+                .and_then(|res| res.body().concat2())
+                .map(move |body: Chunk| serde_json::from_slice(&body).map_err(|_| Error::Internal));
 
         self.core
             .borrow_mut()
             .run(work)
-            .map_err(|_| Error::Internal)
+            .map_err(|_| Error::Internal)?
     }
 }
